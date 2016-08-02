@@ -1,36 +1,4 @@
-<!--<html>-->
-<!--<head>-->
-    <!--&lt;!&ndash;<script type="text/javascript" src="node_modules/angular/angular.js"></script>&ndash;&gt;-->
-    <!--<title>AlgoliaSearch JavaScript</title>-->
-    <!--<script src="https://cdn.jsdelivr.net/angularjs/1/angular.min.js"></script>-->
-    <!--<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.angular.min.js"></script>-->
-    <!--&lt;!&ndash;<script src="node_modules/algoliasearch/dist/algoliasearch.js"></script>&ndash;&gt;-->
-    <!--<script type="text/javascript" src="main.js"></script>-->
 
-
-<!--</head>-->
-<!--<body ng-app="autoCompletion" ng-controller="mainController">-->
-<!--<script >-->
-    <!--var client = algoliasearch('latency', '6be0576ff61c053d5f9a3225e2a90f76');-->
-    <!--var index = client.initIndex('contacts');-->
-    <!--index.search('Atlenta', function(err, results) {-->
-        <!--if (err) {-->
-            <!--throw err;-->
-        <!--}-->
-        <!--console.log('We got `' + results.nbHits + '` results');-->
-        <!--console.log('Here is the first one: ', results.hits[0]);-->
-    <!--});-->
-<!--</script>-->
-
-<!--<div ng-repeat="d in data">-->
-    <!--{{d.name}}-->
-    <!--<img src="{{d.image}}"/>-->
-<!--</div>-->
-
-<!--</body>-->
-
-
-<!--</html>-->
 
 
 <html ng-app="autoCompletion">
@@ -45,9 +13,11 @@
 
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/angular/angular.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/angularjs/1/angular-sanitize.min.js"></script>
+
     <script src="node_modules/algoliasearch/dist/algoliasearch.angular.min.js"></script>
     <script src="bower_components/algolia-autocomplete.js/dist/autocomplete.angular.min.js"></script>
-    <script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="node_modules/lodash/lodash.js"></script>
 
 
 
@@ -74,37 +44,36 @@
 
 
 
-<input type="text" id="search-input" autocomplete aa-datasets="getDatasets()" aa-options="{minLength: 3, autoselect: true}" ng-model="search.query"/>
-<span class="aa-dropdown-menu{{datasets}} aa-{{'with'}}-{{name}}{{datasets}}">
-  <!--{{datasets}}-->
-    <div class="aa-dataset-{{name}}">
-      <!--{{{header}}}-->
-      <span class="aa-suggestions">
-        <!--{{suggestions}}-->
-          <div class="aa-suggestion"></div>
-        <!--{{suggestions}}-->
-        <!--{{suggestions}}-->
-          <!--{{{empty}}}-->
-        <!--{/suggestions}}-->
-      </span>
-      <!--{{{footer}}}-->
-    </div>
-  <!--{{datasets}}-->
-  <!--{{empty}}-->
-</span>
+<!--<span class="aa-dropdown-menu{{datasets}} aa-{{'with'}}-{{name}}{{datasets}}">-->
+  <!--&lt;!&ndash;{{datasets}}&ndash;&gt;-->
+    <!--<div class="aa-dataset-{{name}}">-->
+      <!--&lt;!&ndash;{{{header}}}&ndash;&gt;-->
+      <!--<span class="aa-suggestions">-->
+        <!--&lt;!&ndash;{{suggestions}}&ndash;&gt;-->
+          <!--<div class="aa-suggestion"></div>-->
+        <!--&lt;!&ndash;{{suggestions}}&ndash;&gt;-->
+        <!--&lt;!&ndash;{{suggestions}}&ndash;&gt;-->
+          <!--&lt;!&ndash;{{{empty}}}&ndash;&gt;-->
+        <!--&lt;!&ndash;{/suggestions}}&ndash;&gt;-->
+      <!--</span>-->
+      <!--&lt;!&ndash;{{{footer}}}&ndash;&gt;-->
+    <!--</div>-->
+  <!--&lt;!&ndash;{{datasets}}&ndash;&gt;-->
+  <!--&lt;!&ndash;{{empty}}&ndash;&gt;-->
+<!--</span>-->
 
 
-<!--<header class="panel-heading">-->
-        <!--<div class="search_box">-->
-            <!--<form action="#" method="get">-->
-                <!--<input autocomplete="off" class="autocomplete" placeholder="Start typing" type="text" spellcheck="false" id="q" ng-model="search.query" />-->
-                <!--<div class="searchbutton">-->
-                    <!--<i class="icon-search icon-large"></i>-->
-                <!--</div>-->
-            <!--</form>-->
-        <!--</div>-->
-    <!--</header>-->
-<!--</section>-->
+<header class="panel-heading">
+        <div class="search_box">
+            <form action="#" method="get">
+                <input type="text" id="search-input" autocomplete aa-datasets="getDatasets()" aa-options="{minLength: 3, autoselect: true}" ng-model="search.query"/>
+                <div class="searchbutton">
+                    <i class="icon-search icon-large"></i>
+                </div>
+            </form>
+        </div>
+    </header>
+</section>
 
 <h1>Results</h1>
 <div class="hit" ng-repeat="hit in search.hits">

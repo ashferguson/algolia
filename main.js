@@ -1,15 +1,20 @@
 'use strict';
-var app = angular.module('autoCompletion', ['algoliasearch', 'algolia.autocomplete', 'ngSanitize'])
+var app = angular.module('autoCompletion', ['algoliasearch',  'ngSanitize', 'algolia.autocomplete'])
 app.controller('mainController', ['$scope', 'algolia', function($scope, algolia, mainService){
 
     //TODO: remember bower install algolia-autocomplete.js -S
-    var client = algolia.Client('MMO735BJPX', '16b339c5caaf798cfac0159acd201a72');
+    var client = algolia.Client('MMO735BJPX', 'da32b5d7551d0d21bc5539789514a3d7',{
+        protocol:'https:'
+    });
     var index = client.initIndex('bestBuy');
+
 
     $scope.search = {
         'query' : '',
         'hits' : []
     };
+
+
         $scope.$watch('search.query', function() {
             index.search($scope.search.query, {
                     attributesToRetrieve: ['name', 'brand'],
@@ -25,27 +30,12 @@ app.controller('mainController', ['$scope', 'algolia', function($scope, algolia,
                 });
         });
 
-
-
-    index.search('query string', {
-
-    }, function searchDone(err, content) {
-        if (err) {
-            console.error(err);
-            return;
-        }
-
-        for (var h in content.hits) {
-            console.log('Hit(' + content.hits[h].objectID + '): ' + content.hits[h].toString());
-        }
-    });
-
     index.setSettings({
         'customRanking': ['desc(popularity)']
     }, function(err, content) {
         console.log(content);
     });
-
+    //
     index.setSettings({
         'attributesToIndex': [
             'brand',
@@ -66,7 +56,7 @@ app.controller('mainController', ['$scope', 'algolia', function($scope, algolia,
             displayKey: 'name',
             source: function(q, cb) {
                 index.search(q, {
-                    attributesToRetrieve: ['name', 'brand'],
+                    attributesToRetrieve: ['name', 'categories'],
                     hitsPerPage: 50,
                     getRankingInfo: true
                 }, function(error, content) {
@@ -87,42 +77,26 @@ app.controller('mainController', ['$scope', 'algolia', function($scope, algolia,
 
 
 
-    $scope.$watch('q', function(v) {
-                console.log(v);
-            });
-            $scope.$on('autocomplete:selected', function(event, suggestion, dataset) {
-                console.log(suggestion, dataset);
-            });
+    // $scope.$watch('q', function(v) {
+    //             console.log(v);
+    //         });
+    //         $scope.$on('autocomplete:selected', function(event, suggestion, dataset) {
+    //             console.log(suggestion, dataset);
+    //         });
 
-            index.search('query string', {
+            // index.search('query string', {
+            //
+            // }, function searchDone(err, content) {
+            //     if (err) {
+            //         console.error(err);
+            //         return;
+            //     }
+            //
+            //     for (var h in content.hits) {
+            //         console.log('Hit(' + content.hits[h].objectID + '): ' + content.hits[h].toString());
+            //     }
+            // });
 
-            }, function searchDone(err, content) {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
-
-                for (var h in content.hits) {
-                    console.log('Hit(' + content.hits[h].objectID + '): ' + content.hits[h].toString());
-                }
-            });
-
-            index.setSettings({
-                'customRanking': ['desc(popularity)']
-            }, function(err, content) {
-                console.log(content);
-            });
-
-            index.setSettings({
-                'attributesToIndex': [
-                    'brand',
-                    'categories',
-                    'type',
-                    'name',
-                ]
-            }, function(err, content) {
-                console.log(content);
-            });
 
 
 
