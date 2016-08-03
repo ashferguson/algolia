@@ -57,7 +57,7 @@
 #search input {
   border-radius: 5px;
   float: right;
-  width: 80%;
+  width: 85%;
   height: 35%;
 }
 
@@ -75,16 +75,15 @@
 }
 
 .flex-item {
-  background: tomato;
+  background: white;
   padding: 5px;
   width: 200px;
   height: 200px;
   margin: 10px;
-  //line-height: 150px;
-  color: white;
-  //font-weight: bold;
-  //font-size: 3em;
+  color: black;
+  border-radius: 10px;
   text-align: center;
+  border: 5px solid #D442B6;
 }
 .item-img{
   height: 50%;
@@ -92,6 +91,10 @@
 }
 .item-detail {
   width: 90%;
+}
+.item-display {
+  padding: 0 20px 0 20px;
+  background-color: #1abc9c;
 }
 .section-text{
   width: 100%;
