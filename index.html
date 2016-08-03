@@ -60,7 +60,7 @@
                         <i class="fa fa-search search-icon" aria-hidden="true"></i>
                         <!--             </div> -->
                     </button>
-                    <input type="text" id="search-input" autocomplete aa-datasets="getDatasets()" aa-options="{minLength: 3, autoselect: true}" ng-model="search.query"/>
+                    <input type="text" id="search-input" autocomplete aa-datasets="getDatasets()" aa-options="{minLength: 3, autoselect: true}" ng-model="search.query" placeholder="Search till your hearts' content (Brand, Categories)"/>
 
 
 
@@ -95,24 +95,24 @@
 
                 <div style="padding:20px;margin-top:30px;background-color:#1abc9c;">
 
+                    <div class="section-text">----------- See What's Hot -----------</div>
                     <ul class="flex-container">
 
-                        <header class="panel-heading">
-                            <div class="search_box">
-                                <form action="#" method="get">
-                                    <input type="text" id="search-input" autocomplete aa-datasets="getDatasets()" aa-options="{minLength: 3, autoselect: true}" ng-model="search.query"/>
-                                    <div class="searchbutton">
-                                        <i class="icon-search icon-large"></i>
-                                    </div>
-                                </form>
-                            </div>
-                        </header>
-                        </section>
+                        <!--<header class="panel-heading">-->
+                            <!--<div class="search_box">-->
+                                <!--<form action="#" method="get">-->
+                                    <!--<input type="text" id="search-input" autocomplete aa-datasets="getDatasets()" aa-options="{minLength: 3, autoselect: true}" ng-model="search.query"/>-->
+                                    <!--<div class="searchbutton">-->
+                                        <!--<i class="icon-search icon-large"></i>-->
+                                    <!--</div>-->
+                                <!--</form>-->
+                            <!--</div>-->
+                        <!--</header>-->
 
-                        <h1>Results</h1>
+                        <!--<h1>Results</h1>-->
                         <div class="flex-item" ng-repeat="hit in search.hits">
-                            <span><img ng-src="{{hit.image}}"/></span>
-                            <span>{{ hit.name }} </span>
+                            <div><img class="item-img" ng-src="{{hit.image}}"/></div>
+                            <div class="item-detail">{{ hit.name }} </div>
                             <!--<div class="flex-item" ng-repeat="(attribute,v) in hit._highlightResult">-->
                                 <!---->
                                 <!--<span ng-bind-html="v.value"></span>-->
