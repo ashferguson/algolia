@@ -17,7 +17,7 @@ app.controller('mainController', ['$scope', 'algolia', function($scope, algolia,
 
         $scope.$watch('search.query', function() {
             index.search($scope.search.query, {
-                    attributesToRetrieve: ['name', 'brand'],
+                    attributesToRetrieve: ['name', 'brand', 'image'],
                     hitsPerPage: 50,
                     getRankingInfo: true
             })
@@ -42,6 +42,8 @@ app.controller('mainController', ['$scope', 'algolia', function($scope, algolia,
             'categories',
             'type',
             'name',
+            'popularity',
+            'image'
         ]
     }, function(err, content) {
         console.log(content);

@@ -35,11 +35,113 @@
     <!--&lt;!&ndash;<script src="/bower_components/algolia-autocomplete.js/dist/autocomplete.angular.min.js"></script>&ndash;&gt;-->
     <!--<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.angular.min.js"></script>-->
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/fontawesome/4.3.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.4/css/bootstrap.css">
-    <script type="text/javascript" src="main.js"></script>
+    <link rel="stylesheet" href="app/css/main.css">    <script type="text/javascript" src="main.js"></script>
 </head>
 <body ng-controller="mainController">
+<!--<div ng-app="search">-->
+    <!--<div ng-controller="searchCtrl">-->
+        <div class="parent">
+            <div class="firstBar">
+                <div id="headerText">
+                    <img class="headerImage" src="/app/images/image.png"/>
+                    <img class="purse" src="https://cdn3.iconfinder.com/data/icons/glypho-free/64/shopping-purse-20.png">
+
+                </div>
+                <div id="dealsText">Hurry!! Before your deals run out!
+                    <a href='#'>Details
+                        <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                </div>
+                <div id='search'>
+                    <button class="searchIcon">
+
+
+                        <i class="fa fa-search search-icon" aria-hidden="true"></i>
+                        <!--             </div> -->
+                    </button>
+                    <input type="text" id="search-input" autocomplete aa-datasets="getDatasets()" aa-options="{minLength: 3, autoselect: true}" ng-model="search.query"/>
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+            <div class="navBar">
+                <ul class="navBar">
+
+                    <li><a class="active" href="#home">Categories</a></li>
+                    <li><a href="#news">Brands</a></li>
+                    <li><a href="#contact">Popular</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Dropdown</a>
+                        <div class="dropdown-content">
+                            <a href="#">Link 1</a>
+                            <a href="#">Link 2</a>
+                            <a href="#">Link 3</a>
+                        </div>
+                    </li>
+                    <li><a href="#contact">SALE</a></li>
+                    <li id="cart"><a href='#'><i class="fa fa-shopping-cart" ></i> 2 Items</a></li>
+
+                </ul>
+
+                <div style="padding:20px;margin-top:30px;background-color:#1abc9c;">
+
+                    <ul class="flex-container">
+
+                        <header class="panel-heading">
+                            <div class="search_box">
+                                <form action="#" method="get">
+                                    <input type="text" id="search-input" autocomplete aa-datasets="getDatasets()" aa-options="{minLength: 3, autoselect: true}" ng-model="search.query"/>
+                                    <div class="searchbutton">
+                                        <i class="icon-search icon-large"></i>
+                                    </div>
+                                </form>
+                            </div>
+                        </header>
+                        </section>
+
+                        <h1>Results</h1>
+                        <div class="flex-item" ng-repeat="hit in search.hits">
+                            <span><img ng-src="{{hit.image}}"/></span>
+                            <span>{{ hit.name }} </span>
+                            <!--<div class="flex-item" ng-repeat="(attribute,v) in hit._highlightResult">-->
+                                <!---->
+                                <!--<span ng-bind-html="v.value"></span>-->
+                            <!--</div>-->
+                        </div>
+                        <!--<li class="flex-item">1</li>-->
+                        <!--<li class="flex-item">2</li>-->
+                        <!--<li class="flex-item">3</li>-->
+                        <!--<li class="flex-item">4</li>-->
+                        <!--<li class="flex-item">5</li>-->
+                        <!--<li class="flex-item">6</li>-->
+                    </ul>
+
+
+
+                </div>
+
+
+
+
+
+            </div>
+
+
+
+
+        </div>
+
+
 
 
 
@@ -63,25 +165,6 @@
 <!--</span>-->
 
 
-<header class="panel-heading">
-        <div class="search_box">
-            <form action="#" method="get">
-                <input type="text" id="search-input" autocomplete aa-datasets="getDatasets()" aa-options="{minLength: 3, autoselect: true}" ng-model="search.query"/>
-                <div class="searchbutton">
-                    <i class="icon-search icon-large"></i>
-                </div>
-            </form>
-        </div>
-    </header>
-</section>
-
-<h1>Results</h1>
-<div class="hit" ng-repeat="hit in search.hits">
-    <div class="attribute" ng-repeat="(attribute,v) in hit._highlightResult">
-        <span>{{ attribute }}: </span>
-        <span ng-bind-html="v.value"></span>
-    </div>
-</div>
 
 <!--<script type="text/javascript">-->
 
