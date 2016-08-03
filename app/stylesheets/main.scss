@@ -138,8 +138,9 @@ li a {
   text-decoration: none;
 }
 
-li a:hover:not(.active) {
-  background-color: lightseagreen;
+a:hover, a:focus, a.active {
+  background-color: #1abc9c;
+  color: white;
 }
 
 .dropdown-content {
@@ -160,7 +161,7 @@ li a:hover:not(.active) {
 }
 
 .dropdown-content a:hover {
-  background-color: lightseagreen;
+  background-color: #1abc9c;
 }
 
 .dropdown:hover .dropdown-content {
