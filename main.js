@@ -2,48 +2,70 @@
 var app = angular.module('autoCompletion', ['algoliasearch',  'ngSanitize', 'algolia.autocomplete'])
 app.controller('mainController', ['$scope', 'algolia', function($scope, algolia, mainService){
 
-    //TODO: remember bower install algolia-autocomplete.js -S
     var client = algolia.Client('MMO735BJPX', 'da32b5d7551d0d21bc5539789514a3d7',{
         protocol:'https:'
     });
-    var index = client.initIndex('bestBuy');
+    var totalIndex = client.initIndex('bestBuy');
+    var typeIndex = client.initIndex('typeIndex');
 
 
     $scope.search = {
         'query' : '',
         'hits' : []
     };
+    
+    $scope.getOptions = function(){
+        var options = {
+            autoselect: true,
+            templates: {
+                empty: '<div>Sorry No Results</div>'
+            },
+            cssClasses: {
+                prefix: 'idx-result'
+            }
+        };
+        return options;
+    };
 
 
-        $scope.$watch('search.query', function() {
-            index.search($scope.search.query, {
-                    attributesToRetrieve: ['name', 'brand', 'image'],
-                    hitsPerPage: 50,
-                    getRankingInfo: true
-            })
-                .then(function searchSuccess(content) {
-                    console.log(content);
-                    // add content of search results to scope for display in view
-                    $scope.search.hits = content.hits;
-                }, function searchFailure(err) {
-                    console.log(err);
-                });
-        });
+    $scope.$watch('search.query', function() {
+        totalIndex.search($scope.search.query, {
+                attributesToRetrieve: ['name', 'brand', 'type', 'image'],
+                hitsPerPage: 50,
+                getRankingInfo: true
+        })
+            .then(function searchSuccess(content) {
+                console.log(content);
+                // add content of search results to scope for display in view
+                $scope.search.hits = content.hits;
+            }, function searchFailure(err) {
+                console.log(err);
+            });
+    });
 
-    index.setSettings({
+    totalIndex.setSettings({
         'customRanking': ['desc(popularity)']
     }, function(err, content) {
         console.log(content);
     });
     //
-    index.setSettings({
+    totalIndex.setSettings({
         'attributesToIndex': [
+            'name',
             'brand',
             'categories',
             'type',
-            'name',
-            'popularity',
             'image'
+        ]
+    }, function(err, content) {
+        console.log(content);
+    });
+
+    typeIndex.setSettings({
+        'attributesToIndex': [
+            'name',
+            'categories',
+            'type'
         ]
     }, function(err, content) {
         console.log(content);
@@ -54,14 +76,42 @@ app.controller('mainController', ['$scope', 'algolia', function($scope, algolia,
     //data set for the dropdown
     $scope.getDatasets = function() {
 
-        return {
+        return [
+            {
+                name: 'type',
+                displayKey: 'type',
+                source: function (q, cb) {
+                    typeIndex.search(q, {
+                        attributesToRetrieve: ['name', 'categories'],
+                        hitsPerPage: 50,
+                        getRankingInfo: true
+                    }, function (error, content) {
+                        if (error) {
+                            cb([]);
+                            return;
+                        }
+                        cb(content.hits);
+                    });
+                },
+                templates: {
+                    //suggestion returns only one record
+                    suggestion: function (suggestion) {
+                        var display = suggestion._highlightResult.name.value + ' in ';
+                        display += suggestion._highlightResult.categories[0].value;
+                        return display;
+                    }
+                }
+            },
+
+            {
+            name: 'name',
             displayKey: 'name',
-            source: function(q, cb) {
-                index.search(q, {
+            source: function (q, cb) {
+                totalIndex.search(q, {
                     attributesToRetrieve: ['name', 'categories'],
                     hitsPerPage: 50,
                     getRankingInfo: true
-                }, function(error, content) {
+                }, function (error, content) {
                     if (error) {
                         cb([]);
                         return;
@@ -70,36 +120,16 @@ app.controller('mainController', ['$scope', 'algolia', function($scope, algolia,
                 });
             },
             templates: {
-                suggestion: function(suggestion) {
-                    return suggestion._highlightResult.name.value;
+                //suggestion returns only one record
+                suggestion: function (suggestion) {
+                    var display = suggestion._highlightResult.name.value + ' in ';
+                    display += suggestion._highlightResult.categories[0].value;
+                    return display;
                 }
             }
-        };
+        }
+        ];
     };
-
-
-
-    // $scope.$watch('q', function(v) {
-    //             console.log(v);
-    //         });
-    //         $scope.$on('autocomplete:selected', function(event, suggestion, dataset) {
-    //             console.log(suggestion, dataset);
-    //         });
-
-            // index.search('query string', {
-            //
-            // }, function searchDone(err, content) {
-            //     if (err) {
-            //         console.error(err);
-            //         return;
-            //     }
-            //
-            //     for (var h in content.hits) {
-            //         console.log('Hit(' + content.hits[h].objectID + '): ' + content.hits[h].toString());
-            //     }
-            // });
-
-
 
 
 
@@ -120,19 +150,41 @@ app.service('mainService', function($http){
             method: 'GET',
             url: 'https://raw.githubusercontent.com/algolia/instant-search-demo/master/data.json'
         }).then(function successCallback(response) {
+            //return the cb when it's available (asynchronously)
             return response.data;
-            // this callback will be called asynchronously
-            // when the response is available
         }, function errorCallback(response) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            //return the error cb if it occurs (asynchronously)
             return response;
 
         });
     }
 
+    function createIndices(data){
+        var typeIndex = {};
+        var typeObj = {};
+
+        for(var i=0; i<data.length; i++){
+            var item = data[i];
+            if(item.type in typeIndex){
+                typeObj[item.type].products(item);
+                typeIndex[item.type] = typeObj[item.type];
+            }
+            else{
+                typeObj[item.type] = {
+                    name: item.type,
+                    products: []
+                };
+                typeObj[item.type].products(item);
+                typeIndex[item.type] = typeObj[item.type];
+            }
+        }
+
+        return typeIndex;
+    }
+
     return {
-        getData: getData
+        getData: getData,
+        createIndices: createIndices
     }
 })
 

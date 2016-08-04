@@ -1,16 +1,5 @@
-
-
-
 <html ng-app="autoCompletion">
 <head>
-    <!--<meta name="viewport" content="width=device-width,initial-scale=1">-->
-
-    <!--<script src="//cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"></script>-->
-    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.min.js"></script>-->
-    <!--<script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.angular.min.js"></script>-->
-    <!--<script src="//cdn.jsdelivr.net/autocomplete.js/0/autocomplete.angular.min.js"></script>-->
-
-
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="https://cdn.jsdelivr.net/angularjs/1/angular-sanitize.min.js"></script>
@@ -19,184 +8,54 @@
     <script src="bower_components/algolia-autocomplete.js/dist/autocomplete.angular.min.js"></script>
     <script src="node_modules/lodash/lodash.js"></script>
 
-
-
-
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.angular.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.angular.min.js"></script>-->
- <!--<script src="node_modules/angular/angular.min.js"></script>-->
-    <!--<script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"></script>-->
-
-    <!--<script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>-->
-
-    <!--<script src="node_modules/algoliasearch/dist/algoliasearch.angular.js"></script>-->
-
-    <!--&lt;!&ndash;<script src="/bower_components/algolia-autocomplete.js/dist/autocomplete.angular.min.js"></script>&ndash;&gt;-->
-    <!--<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.angular.min.js"></script>-->
-
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.4/css/bootstrap.css">
     <link rel="stylesheet" href="app/css/main.css">    <script type="text/javascript" src="main.js"></script>
 </head>
 <body ng-controller="mainController">
-<!--<div ng-app="search">-->
-    <!--<div ng-controller="searchCtrl">-->
-        <div class="parent">
+        <div class="parentContainer">
             <div class="firstBar">
                 <div id="headerText">
                     <img class="headerImage" src="/app/images/image.png"/>
                     <img class="purse" src="https://cdn3.iconfinder.com/data/icons/glypho-free/64/shopping-purse-20.png">
-
                 </div>
                 <div id="dealsText">Hurry!! Before your deals run out!
-                    <a href='#'>Details
-                        <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                    <a href='#'>Details <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
                 </div>
                 <div id='search'>
-                    <button class="searchIcon">
-
-
-                        <i class="fa fa-search search-icon" aria-hidden="true"></i>
-                        <!--             </div> -->
+                    <button class="searchIcon"><i class="fa fa-search" aria-hidden="true"></i>
                     </button>
-                    <input type="text" id="search-input" autocomplete aa-datasets="getDatasets()" aa-options="{minLength: 3, autoselect: true}" ng-model="search.query" placeholder="Search your heart out (Brand, Categories)"/>
-
-
-
+                    <input type="text" id="search-input" autocomplete aa-datasets="getDatasets()" aa-options="getOptions()" ng-model="search.query" placeholder="Search your heart out (Brand, Categories)"/>
                 </div>
-
-
-
+            <!--End of fist nav bar-->
             </div>
 
-
-
-
-
+            <!--Start of secondary nav bar-->
             <div class="navBar">
-                <ul class="navBar">
-
+                <ul>
                     <li><a href="#">POPULAR</a></li>
                     <li><a href="#">BRANDS</a></li>
-                    <!--<li><a href="#"></a></li>-->
-                    <li class="dropdown">
-                        <a href="#" class="dropbtn">CATEGORIES</a>
-                        <div class="dropdown-content">
-                            <a href="#">Cameras</a>
-                            <a href="#">Computers</a>
-                            <a href="#">Tablets</a>
-                            <a href="#">Appliances</a>
-                        </div>
-                    </li>
+                    <li><a href="#">CATEGORIES</a></li>
                     <li><a href="#">SALE</a></li>
                     <li id="cart"><a href='#'><i class="fa fa-shopping-cart" ></i> 2 Items</a></li>
 
                 </ul>
-
-                <div class="item-display">
-
-                    <div class="section-text">----------- See What's Hot -----------</div>
-                    <ul class="flex-container">
-
-                        <!--<header class="panel-heading">-->
-                            <!--<div class="search_box">-->
-                                <!--<form action="#" method="get">-->
-                                    <!--<input type="text" id="search-input" autocomplete aa-datasets="getDatasets()" aa-options="{minLength: 3, autoselect: true}" ng-model="search.query"/>-->
-                                    <!--<div class="searchbutton">-->
-                                        <!--<i class="icon-search icon-large"></i>-->
-                                    <!--</div>-->
-                                <!--</form>-->
-                            <!--</div>-->
-                        <!--</header>-->
-
-                        <!--<h1>Results</h1>-->
-                        <div class="flex-item" ng-repeat="hit in search.hits">
-                            <div><img class="item-img" ng-src="{{hit.image}}"/></div>
-                            <div class="item-detail">{{ hit.name }} </div>
-                            <!--<div class="flex-item" ng-repeat="(attribute,v) in hit._highlightResult">-->
-                                <!---->
-                                <!--<span ng-bind-html="v.value"></span>-->
-                            <!--</div>-->
-                        </div>
-                        <!--<li class="flex-item">1</li>-->
-                        <!--<li class="flex-item">2</li>-->
-                        <!--<li class="flex-item">3</li>-->
-                        <!--<li class="flex-item">4</li>-->
-                        <!--<li class="flex-item">5</li>-->
-                        <!--<li class="flex-item">6</li>-->
-                    </ul>
-
-
-
-                </div>
-
-
-
-
-
             </div>
 
-
-
-
+            <!--Display of all results-->
+            <div>
+                <div class="item-display">
+                    <div class="section-text">----------- See What's Hot -----------</div>
+                    <ul class="flex-container">
+                        <div class="flex-item" ng-repeat="hit in search.hits">
+                            <div><img class="item-img" ng-bind-html="hit.image" ng-src="{{hit.image}}"/></div>
+                            <div class="item-detail" ng-bind-html=" hit.name"> </div>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        <!--End of parent container-->
         </div>
-
-
-
-
-
-
-<!--<span class="aa-dropdown-menu{{datasets}} aa-{{'with'}}-{{name}}{{datasets}}">-->
-  <!--&lt;!&ndash;{{datasets}}&ndash;&gt;-->
-    <!--<div class="aa-dataset-{{name}}">-->
-      <!--&lt;!&ndash;{{{header}}}&ndash;&gt;-->
-      <!--<span class="aa-suggestions">-->
-        <!--&lt;!&ndash;{{suggestions}}&ndash;&gt;-->
-          <!--<div class="aa-suggestion"></div>-->
-        <!--&lt;!&ndash;{{suggestions}}&ndash;&gt;-->
-        <!--&lt;!&ndash;{{suggestions}}&ndash;&gt;-->
-          <!--&lt;!&ndash;{{{empty}}}&ndash;&gt;-->
-        <!--&lt;!&ndash;{/suggestions}}&ndash;&gt;-->
-      <!--</span>-->
-      <!--&lt;!&ndash;{{{footer}}}&ndash;&gt;-->
-    <!--</div>-->
-  <!--&lt;!&ndash;{{datasets}}&ndash;&gt;-->
-  <!--&lt;!&ndash;{{empty}}&ndash;&gt;-->
-<!--</span>-->
-
-
-
-<!--<script type="text/javascript">-->
-
-    <!--angular-->
-            <!--.module('myapp', ['algoliasearch', 'ngSanitize'])-->
-            <!--.controller('SearchCtrl', ['$scope', 'algolia', function($scope, algolia) {-->
-
-                <!--// Replace the following values by your ApplicationID and ApiKey.-->
-                <!--var client = algolia.Client('latency', '6be0576ff61c053d5f9a3225e2a90f76');-->
-
-                <!--// Replace the following value by the name of the index you want to query.-->
-                <!--var index = client.initIndex('contacts');-->
-
-                <!--$scope.search = {-->
-                    <!--'query' : '',-->
-                    <!--'hits' : []-->
-                <!--};-->
-
-                <!--$scope.$watch('search.query', function() {-->
-                    <!--index.search($scope.search.query)-->
-                            <!--.then(function searchSuccess(content) {-->
-                                <!--console.log(content);-->
-                                <!--// add content of search results to scope for display in view-->
-                                <!--$scope.search.hits = content.hits;-->
-                            <!--}, function searchFailure(err) {-->
-                                <!--console.log(err);-->
-                            <!--});-->
-                <!--});-->
-            <!--}]);-->
-
-<!--</script>-->
 </body>
 </html>
 
