@@ -1,0 +1,154 @@
+.algolia-autocomplete {
+  width: 100%; }
+
+.algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+  width: 100%; }
+
+.parentContainer {
+  margin: 20px 30px; }
+
+.firstBar {
+  display: flex;
+  justify-context: flex-start;
+  align-items: center;
+  height: 80px;
+  margin: 0 10px; }
+
+#headerText {
+  flex: 1;
+  margin-left: 15px; }
+
+.headerImage {
+  width: 90%; }
+
+#dealsText {
+  font-size: 1em;
+  flex: 0 1 auto;
+  text-align: center; }
+
+#search {
+  flex: 1;
+  height: inherit; }
+
+#search input {
+  border-radius: 5px;
+  float: right;
+  width: 85%;
+  height: 35%; }
+
+.searchIcon {
+  float: right;
+  position: relative;
+  height: 35%;
+  transform: translateY(100%);
+  z-index: 1000;
+  border: none;
+  background-color: lightgray;
+  border-radius: 2px; }
+
+.flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  justify-content: space-between; }
+
+.flex-item {
+  background: white;
+  padding: 5px;
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+  color: black;
+  border-radius: 10px;
+  text-align: center;
+  border: 5px solid #D442B6; }
+
+.item-img {
+  height: 50%;
+  max-width: 95%; }
+
+.item-detail {
+  width: 90%; }
+
+.item-display {
+  padding: 0 20px 0 20px;
+  background-color: #1abc9c; }
+
+.section-text {
+  width: 100%;
+  font-size: 16px;
+  text-align: center; }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  width: 100%; }
+
+li {
+  float: left; }
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none; }
+
+#cart {
+  float: right;
+  margin-right: 10px; }
+
+a:hover, a:focus, a.active {
+  background-color: #1abc9c;
+  color: white; }
+
+.idx-result-dropdown-menu {
+  position: absolute;
+  left: 0px;
+  z-index: 100;
+  display: block;
+  right: auto;
+  color: black;
+  background-color: white;
+  border: 2px solid #1abc9c;
+  max-height: 450px;
+  overflow-y: scroll; }
+
+.idx-result-dataset-name li:hover {
+  cursor: pointer;
+  background-color: #1abc9c; }
+
+.idx-result-empty, .idx-result-without-name {
+  width: 100%;
+  padding: 2px 4px;
+  font-weight: bold;
+  font-style: normal; }
+
+.idx-result-dropdown-menu, .idx-result-with-name {
+  width: 100%; }
+
+.idx-result-suggestion {
+  padding: 5px;
+  line-height: 20px;
+  border-bottom: 1px solid #C0C0C0; }
+
+.algolia-autocomplete .idx-result-suggestion em {
+  cursor: pointer;
+  color: black;
+  font-weight: bold;
+  font-style: normal;
+  width: 100%;
+  text-overflow: ellipsis; }
+
+.idx-result-suggestion:hover {
+  cursor: pointer;
+  background-color: #cafcf2; }
