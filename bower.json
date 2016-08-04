@@ -1,0 +1,20 @@
+{
+  "name": "algolia",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Ashley Ferguson <adfergu2@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/ashferguson/algolia",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "algolia-autocomplete.js": "^0.21.3"
+  }
+}

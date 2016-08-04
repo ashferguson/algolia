@@ -11,6 +11,10 @@ gulp.task('sass', function(){
         .pipe(gulp.dest('app/css'))
 });
 
+gulp.task("build", ["sass"], function(callback){
+
+});
+
 //watch multiple files at once
 gulp.task('watch', function(){
     gulp.watch('app/stylesheets/*/scss', ['sass']);
