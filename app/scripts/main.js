@@ -8,6 +8,22 @@ app.controller('mainController', ['$scope', 'algolia', function($scope, algolia,
     var totalIndex = client.initIndex('bestBuy');
     var typeIndex = client.initIndex('typeIndex');
 
+    /** Function used to create the type Index through the API
+     function createTypeIndex(){
+        mainService.getData().then((response) => {
+            var types = mainService.createIndices(response);
+
+            _.forEach(types, function(value, key){
+                console.log(key,  value.products);
+
+                index.addObject({type: key, products: value.products}, function(err, content){
+                    console.log('obj', content.type);
+                 })
+            });
+         });
+    })();
+     **/
+
 
     $scope.search = {
         'query' : '',
